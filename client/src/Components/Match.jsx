@@ -11,24 +11,19 @@ const Match = () => {
   const [eligibility, setEligibility] = useState("");
 
   console.log(cibilScore);
-  useEffect(() => {
-    financerData();
-  }, []);
 
-  const financerData = async () => {
-    try {
-      const data = await fetch("http://localhost:8080/financiers");
-      const res = await data.json();
-      setData(res);
-      console.log("Data ==>", res);
-    } catch (error) {
-      console.log("Error ==>", error);
-    }
+  const financerData = () => {
+    return fetch("https://vesak-sever-production.up.railway.app/financiers")
+      .then((response) => response.json())
+      .then((data) => setData(data));
   };
-
   const handleCibilScore = (event) => {
     setCibilScore(event.target.value);
   };
+
+  useEffect(() => {
+    financerData();
+  }, []);
 
   const handleLoanAmount = (event) => {
     setMinLoanAmount(event.target.value);
